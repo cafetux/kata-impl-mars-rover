@@ -14,19 +14,18 @@ public class TurnLeftCommand extends TurnCommand {
     }
 
     public Rover execute() {
-        if (rover.getDirection() == SOUTH) {
-            return copyRoverFacing(EAST);
+        switch (rover.getDirection()) {
+            case SOUTH:
+                return copyRoverFacing(EAST);
+            case NORTH:
+                return copyRoverFacing(WEST);
+            case WEST:
+                return copyRoverFacing(SOUTH);
+            case EAST:
+                return copyRoverFacing(NORTH);
+            default:
+                throw new IllegalArgumentException("invalid direction "+rover.getDirection());
         }
-        if (rover.getDirection() == NORTH) {
-            return copyRoverFacing(WEST);
-        }
-        if (rover.getDirection() == WEST) {
-            return copyRoverFacing(SOUTH);
-        }
-        if (rover.getDirection() == EAST) {
-            return copyRoverFacing(NORTH);
-        }
-        return rover;
     }
 
     }

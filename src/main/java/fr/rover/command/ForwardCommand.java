@@ -15,21 +15,17 @@ public class ForwardCommand implements RoverCommand {
     }
 
     public Rover execute() {
-        if(rover.getDirection()== Cardinality.SOUTH){
-            return new Rover(rover.getX(),rover.getY()-1,rover.getDirection());
+        switch (rover.getDirection()) {
+            case SOUTH:
+                return new Rover(rover.getX(), rover.getY() - 1, rover.getDirection());
+            case NORTH:
+                return new Rover(rover.getX(), rover.getY() + 1, rover.getDirection());
+            case EAST:
+                return new Rover(rover.getX() + 1, rover.getY(), rover.getDirection());
+            case WEST:
+                return new Rover(rover.getX() - 1, rover.getY(), rover.getDirection());
+            default:
+                throw new IllegalArgumentException("invalid direction "+rover.getDirection());
         }
-
-        if(rover.getDirection()== Cardinality.NORTH){
-            return new Rover(rover.getX(),rover.getY()+1,rover.getDirection());
-        }
-
-        if(rover.getDirection()== Cardinality.EAST){
-            return new Rover(rover.getX()+1,rover.getY(),rover.getDirection());
-        }
-
-        if(rover.getDirection()== Cardinality.WEST){
-            return new Rover(rover.getX()-1,rover.getY(),rover.getDirection());
-        }
-        throw new IllegalArgumentException("invalid direction "+rover.getDirection());
     }
 }

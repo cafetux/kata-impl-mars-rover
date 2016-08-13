@@ -7,26 +7,24 @@ import static fr.rover.Cardinality.*;
 /**
  * Created by fmaury on 13/08/16.
  */
-public class TurnLeftCommand implements RoverCommand {
-
-    private final Rover rover;
+public class TurnLeftCommand extends TurnCommand {
 
     public TurnLeftCommand(Rover rover){
-        this.rover=rover;
+        super(rover);
     }
 
     public Rover execute() {
         if (rover.getDirection() == SOUTH) {
-            return new Rover(rover.getX(), rover.getY(), EAST);
+            return copyRoverFacing(EAST);
         }
         if (rover.getDirection() == NORTH) {
-            return new Rover(rover.getX(), rover.getY(), WEST);
+            return copyRoverFacing(WEST);
         }
         if (rover.getDirection() == WEST) {
-            return new Rover(rover.getX(), rover.getY(), SOUTH);
+            return copyRoverFacing(SOUTH);
         }
         if (rover.getDirection() == EAST) {
-            return new Rover(rover.getX(), rover.getY(), NORTH);
+            return copyRoverFacing(NORTH);
         }
         return rover;
     }

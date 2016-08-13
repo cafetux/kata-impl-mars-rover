@@ -1,9 +1,12 @@
 package fr.rover;
 
-import fr.rover.command.BackCommand;
-import fr.rover.command.ForwardCommand;
-import fr.rover.command.TurnLeftCommand;
-import fr.rover.command.TurnRightCommand;
+import fr.rover.command.*;
+
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import static java.util.Arrays.stream;
 
 /**
  * Systeme de commande du Rover
@@ -11,27 +14,24 @@ import fr.rover.command.TurnRightCommand;
 public class RoverCommandSystem {
 
 
-    private final Rover rover;
+    private Rover rover;
+    private Function<Character, RoverCommand> TO_COMMAND = instruction -> RoverCommandFactory.get(instruction, rover);
+    private Function<RoverCommand, Rover> EXECUTE = RoverCommand::execute;
+    private Consumer<Rover> UPDATE_ROVER_STATE = this::fillRover;
 
     public RoverCommandSystem(Rover rover){
         this.rover=rover;
     }
 
 
-    public void receive(Character[] commands) {
-        Rover newRover = rover;
-        if (commands[0] == 'f') {
-            newRover = new ForwardCommand(rover).execute();
-        }
-        if (commands[0] == 'b') {
-            newRover = new BackCommand(rover).execute();
-        }
-        if (commands[0] == 'l') {
-            newRover = new TurnLeftCommand(rover).execute();
-        }
-        if (commands[0] == 'r') {
-            newRover = new TurnRightCommand(rover).execute();
-        }
+    public void receive(Character[] instructions) {
+        stream(instructions)
+                .map(TO_COMMAND)
+                .map(EXECUTE)
+                .forEach(UPDATE_ROVER_STATE);
+    }
+
+    private void fillRover(Rover newRover) {
         rover.setX(newRover.getX());
         rover.setY(newRover.getY());
         rover.setDirection(newRover.getDirection());

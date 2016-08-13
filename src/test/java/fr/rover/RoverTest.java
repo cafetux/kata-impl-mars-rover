@@ -63,6 +63,17 @@ public class RoverTest {
         and_facing(WEST);
     }
 
+    @Test
+    public void should_send_multiple_commands(){
+        given_a_rover_on_position(5, 5);
+        and_facing_to(NORTH);
+
+        when_rover_receive_orders('r','f','f','l','b','l','l','f');
+
+        then_the_rover_is_on_position(7,3);
+        and_facing(SOUTH);
+    }
+
     private void and_facing(Cardinality facingTo) {
         assertThat(roverUnderTest.getDirection()).as("invalid rover direction").isEqualTo(facingTo);
     }
@@ -74,6 +85,9 @@ public class RoverTest {
 
     private void when_rover_receive_order(char command) {
         commandSystem.receive(new Character[]{command});
+    }
+    private void when_rover_receive_orders(Character... commands) {
+        commandSystem.receive(commands);
     }
 
     private void and_facing_to(Cardinality direction) {

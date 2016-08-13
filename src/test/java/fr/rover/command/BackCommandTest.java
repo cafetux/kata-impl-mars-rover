@@ -4,23 +4,13 @@ import fr.rover.Cardinality;
 import fr.rover.Rover;
 import org.junit.Test;
 
-import java.util.Random;
-
 import static fr.rover.Cardinality.*;
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 
 /**
  * Created by fmaury on 07/08/16.
  */
-public class BackCommandTest {
-    
-    Random random = new Random();
-    private Cardinality initialDirection = randomDirection();
-    private int initialX = randomPosition();
-    private int initialY = randomPosition();
-    private RoverCommand command;
-    private Rover newRoverState;
+public class BackCommandTest extends AbstractCommandTest {
 
     @Test
     public void should_keep_the_same_direction_when_go_back(){
@@ -61,41 +51,12 @@ public class BackCommandTest {
         then_are_move_to(initialX, initialY+1);
     }
 
-    private void then_are_move_to(int expectedX, int expectedY) {
-        assertThat(newRoverState.getX()).as("Bad value for X").isEqualTo(expectedX);
-        assertThat(newRoverState.getY()).as("Bad value for Y").isEqualTo(expectedY);
-    }
-
-    private void then_have_just_move_a_distance_of(int expectedDistance) {
-        assertThat(elapsedDistance()).isEqualTo(expectedDistance);
-    }
-
-    private int elapsedDistance() {
-        return Math.abs(initialX-newRoverState.getX())+Math.abs(initialY-newRoverState.getY());
-    }
-
-    private void then_is_on_the_same_direction() {
-        assertThat(newRoverState.getDirection()).as("direction cannot change when forward").isEqualTo(initialDirection);
-    }
-
     private void when_rover_go_back() {
         newRoverState = command.execute();
     }
 
-    private void given_a_random_rover() {
-        command = new BackCommand(new Rover(initialX, initialY,initialDirection));
-    }
-
-    private void given_a_rover(Cardinality direction) {
-        command = new BackCommand(new Rover(initialX, initialY,direction));
-    }
-
-    private int randomPosition() {
-        return random.nextInt(10);
-    }
-
-    private Cardinality randomDirection() {
-        return Cardinality.values()[random.nextInt(4)];
+    RoverCommand getRoverCommand(Cardinality direction) {
+        return new BackCommand(new Rover(initialX, initialY,direction));
     }
 
 }

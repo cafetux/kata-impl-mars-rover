@@ -3,6 +3,7 @@ package fr.rover;
 import fr.rover.command.BackCommand;
 import fr.rover.command.ForwardCommand;
 import fr.rover.command.TurnLeftCommand;
+import fr.rover.command.TurnRightCommand;
 
 /**
  * Systeme de commande du Rover
@@ -27,6 +28,9 @@ public class RoverCommandSystem {
         }
         if (commands[0] == 'l') {
             newRover = new TurnLeftCommand(rover).execute();
+        }
+        if (commands[0] == 'r') {
+            newRover = new TurnRightCommand(rover).execute();
         }
         rover.setX(newRover.getX());
         rover.setY(newRover.getY());

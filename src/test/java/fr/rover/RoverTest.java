@@ -20,18 +20,7 @@ public class RoverTest {
     private RoverCommandSystem commandSystem;
 
     @Test
-    public void should_go_forward_to_north_when_facing_north(){
-        given_a_rover_on_position(5, 5);
-        and_facing_to(NORTH);
-
-        when_rover_receive_order('f');
-
-        then_the_rover_is_on_position(5,6);
-        and_facing(NORTH);
-    }
-
-    @Test
-    public void should_go_forward_to_south_when_facing_south(){
+    public void should_go_forward(){
         given_a_rover_on_position(5, 5);
         and_facing_to(SOUTH);
 
@@ -42,7 +31,7 @@ public class RoverTest {
     }
 
     @Test
-    public void should_go_back_to_south_when_facing_north(){
+    public void should_go_back(){
         given_a_rover_on_position(3, 5);
         and_facing_to(NORTH);
 
@@ -53,7 +42,7 @@ public class RoverTest {
     }
 
     @Test
-    public void should_facing_to_south_after_turning_left_when_facing_to_west(){
+    public void should_can_turn_left(){
         given_a_rover_on_position(5, 5);
         and_facing_to(WEST);
 
@@ -61,6 +50,17 @@ public class RoverTest {
 
         then_the_rover_is_on_position(5,5);
         and_facing(SOUTH);
+    }
+
+    @Test
+    public void should_can_turn_right(){
+        given_a_rover_on_position(5, 5);
+        and_facing_to(SOUTH);
+
+        when_rover_receive_order('r');
+
+        then_the_rover_is_on_position(5,5);
+        and_facing(WEST);
     }
 
     private void and_facing(Cardinality facingTo) {

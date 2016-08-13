@@ -3,8 +3,6 @@ package fr.rover.command;
 import fr.rover.Cardinality;
 import fr.rover.Rover;
 
-import static fr.rover.Cardinality.*;
-
 /**
  * Created by fmaury on 13/08/16.
  */

@@ -1,5 +1,6 @@
 package fr.rover;
 
+import fr.rover.instruction.Instructions;
 import org.junit.Test;
 
 import static fr.rover.Cardinality.NORTH;
@@ -24,7 +25,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(SOUTH);
 
-        when_rover_receive_order('f');
+        when_rover_receive_instruction('f');
 
         then_the_rover_is_on_position(5,4);
         and_facing(SOUTH);
@@ -35,7 +36,7 @@ public class RoverTest {
         given_a_rover_on_position(3, 5);
         and_facing_to(NORTH);
 
-        when_rover_receive_order('b');
+        when_rover_receive_instruction('b');
 
         then_the_rover_is_on_position(3,4);
         and_facing(NORTH);
@@ -46,7 +47,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(WEST);
 
-        when_rover_receive_order('l');
+        when_rover_receive_instruction('l');
 
         then_the_rover_is_on_position(5,5);
         and_facing(SOUTH);
@@ -57,7 +58,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(SOUTH);
 
-        when_rover_receive_order('r');
+        when_rover_receive_instruction('r');
 
         then_the_rover_is_on_position(5,5);
         and_facing(WEST);
@@ -83,11 +84,11 @@ public class RoverTest {
         assertThat(roverUnderTest.getY()).as("invalid Y position").isEqualTo(expectingY);
     }
 
-    private void when_rover_receive_order(char command) {
-        commandSystem.receive(new Character[]{command});
+    private void when_rover_receive_instruction(char instruction) {
+        commandSystem.receive(Instructions.from(new Character[]{instruction}));
     }
     private void when_rover_receive_orders(Character... commands) {
-        commandSystem.receive(commands);
+        commandSystem.receive(Instructions.from(commands));
     }
 
     private void and_facing_to(Cardinality direction) {

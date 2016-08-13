@@ -2,11 +2,9 @@ package fr.rover.command;
 
 import fr.rover.Cardinality;
 import fr.rover.Rover;
-import org.junit.Test;
 
 import java.util.Random;
 
-import static fr.rover.Cardinality.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 

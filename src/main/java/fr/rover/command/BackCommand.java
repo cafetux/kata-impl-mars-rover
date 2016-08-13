@@ -1,6 +1,5 @@
 package fr.rover.command;
 
-import fr.rover.Cardinality;
 import fr.rover.Rover;
 
 /**

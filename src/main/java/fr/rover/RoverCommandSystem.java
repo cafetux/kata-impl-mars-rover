@@ -1,12 +1,12 @@
 package fr.rover;
 
-import fr.rover.command.*;
+import fr.rover.command.RoverCommand;
+import fr.rover.command.RoverCommandFactory;
+import fr.rover.instruction.Instruction;
+import fr.rover.instruction.Instructions;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import static java.util.Arrays.stream;
 
 /**
  * Systeme de commande du Rover
@@ -15,7 +15,7 @@ public class RoverCommandSystem {
 
 
     private Rover rover;
-    private Function<Character, RoverCommand> TO_COMMAND = instruction -> RoverCommandFactory.get(instruction, rover);
+    private Function<Instruction, RoverCommand> TO_COMMAND = instruction -> RoverCommandFactory.get(instruction, rover);
     private Function<RoverCommand, Rover> EXECUTE = RoverCommand::execute;
     private Consumer<Rover> UPDATE_ROVER_STATE = this::fillRover;
 
@@ -24,8 +24,8 @@ public class RoverCommandSystem {
     }
 
 
-    public void receive(Character[] instructions) {
-        stream(instructions)
+    public void receive(Instructions instructions) {
+        instructions.stream()
                 .map(TO_COMMAND)
                 .map(EXECUTE)
                 .forEach(UPDATE_ROVER_STATE);

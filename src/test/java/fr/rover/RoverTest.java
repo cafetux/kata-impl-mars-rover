@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static fr.rover.Cardinality.NORTH;
 import static fr.rover.Cardinality.SOUTH;
+import static fr.rover.Cardinality.WEST;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -49,6 +50,17 @@ public class RoverTest {
 
         then_the_rover_is_on_position(3,4);
         and_facing(NORTH);
+    }
+
+    @Test
+    public void should_facing_to_south_after_turning_left_when_facing_to_west(){
+        given_a_rover_on_position(5, 5);
+        and_facing_to(WEST);
+
+        when_rover_receive_order('l');
+
+        then_the_rover_is_on_position(5,5);
+        and_facing(SOUTH);
     }
 
     private void and_facing(Cardinality facingTo) {

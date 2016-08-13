@@ -31,13 +31,23 @@ public abstract class AbstractCommandTest {
     protected void then_have_just_move_a_distance_of(int expectedDistance) {
         assertThat(elapsedDistance()).isEqualTo(expectedDistance);
     }
+    protected void then_is_at_the_same_position() {
+        assertThat(elapsedDistance()).isEqualTo(0);
+    }
 
     protected int elapsedDistance() {
         return Math.abs(initialX-newRoverState.getX())+Math.abs(initialY-newRoverState.getY());
     }
 
     protected void then_is_on_the_same_direction() {
-        assertThat(newRoverState.getDirection()).as("direction cannot change when forward").isEqualTo(initialDirection);
+        assertThat(newRoverState.getDirection()).as("direction cannot change when forward or backward").isEqualTo(initialDirection);
+    }
+
+    protected void then_facing_to(Cardinality expectedOrientation) {
+        assertThat(newRoverState.getDirection()).as("invalid Direction after turning").isEqualTo(expectedOrientation);
+    }
+    protected void then_is_on_other_direction() {
+        assertThat(newRoverState.getDirection()).as("direction must change when turn").isNotEqualTo(initialDirection);
     }
 
     protected void given_a_random_rover() {

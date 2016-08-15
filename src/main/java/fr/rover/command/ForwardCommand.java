@@ -1,5 +1,7 @@
 package fr.rover.command;
 
+import fr.rover.Map;
+import fr.rover.ObstacleDetected;
 import fr.rover.Rover;
 
 /**
@@ -8,23 +10,36 @@ import fr.rover.Rover;
 public class ForwardCommand implements RoverCommand {
 
     private final Rover rover;
+    private final Map map;
 
-    public ForwardCommand(Rover rover){
+    public ForwardCommand(Rover rover, Map map){
         this.rover=rover;
+        this.map=map;
     }
 
     public Rover execute() {
+        Rover newRoverState = null;
         switch (rover.getDirection()) {
             case SOUTH:
-                return new Rover(rover.getX(), rover.getY() - 1, rover.getDirection());
+                newRoverState= new Rover(rover.getX(), rover.getY() - 1, rover.getDirection());
+                break;
             case NORTH:
-                return new Rover(rover.getX(), rover.getY() + 1, rover.getDirection());
+                newRoverState= new Rover(rover.getX(), rover.getY() + 1, rover.getDirection());
+                break;
             case EAST:
-                return new Rover(rover.getX() + 1, rover.getY(), rover.getDirection());
+                newRoverState= new Rover(rover.getX() + 1, rover.getY(), rover.getDirection());
+                break;
             case WEST:
-                return new Rover(rover.getX() - 1, rover.getY(), rover.getDirection());
+                newRoverState= new Rover(rover.getX() - 1, rover.getY(), rover.getDirection());
+                break;
             default:
                 throw new IllegalArgumentException("invalid direction "+rover.getDirection());
         }
+        if(map.isAvailable(newRoverState.getPosition())){
+            return newRoverState;
+        }else{
+            throw new ObstacleDetected(newRoverState.getPosition());
+        }
+
     }
 }

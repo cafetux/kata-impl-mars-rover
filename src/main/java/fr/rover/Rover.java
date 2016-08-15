@@ -43,4 +43,8 @@ public class Rover {
     public void setDirection(Cardinality direction) {
         this.direction = direction;
     }
+
+    public Coordonnee getPosition() {
+        return position;
+    }
 }

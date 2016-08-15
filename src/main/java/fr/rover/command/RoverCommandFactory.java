@@ -1,5 +1,6 @@
 package fr.rover.command;
 
+import fr.rover.Map;
 import fr.rover.instruction.Instruction;
 import fr.rover.Rover;
 
@@ -13,10 +14,14 @@ public class RoverCommandFactory {
     public static final Instruction BACK = new Instruction('b');
     public static final Instruction TURN_LEFT = new Instruction('l');
     public static final Instruction TURN_RIGHT = new Instruction('r');
+    private static Map map;
 
     public static RoverCommand get(Instruction instruction,Rover rover){
+        if(map==null){
+            throw new IllegalStateException("Map must be initialized");
+        }
         if (FORWARD.equals(instruction)) {
-            return new ForwardCommand(rover);
+            return new ForwardCommand(rover,map);
         }
         if (BACK.equals(instruction)) {
             return new BackCommand(rover);
@@ -28,6 +33,10 @@ public class RoverCommandFactory {
             return new TurnRightCommand(rover);
         }
         throw new IllegalArgumentException("no command found for instruction "+instruction);
+    }
+
+    public static void setMap(Map map){
+        RoverCommandFactory.map = map;
     }
     
 }

@@ -1,11 +1,16 @@
 package fr.rover;
 
+import fr.rover.command.RoverCommandFactory;
+import fr.rover.coordonnee.Coordonnee;
 import fr.rover.instruction.Instructions;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static fr.rover.Cardinality.NORTH;
 import static fr.rover.Cardinality.SOUTH;
 import static fr.rover.Cardinality.WEST;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -19,6 +24,9 @@ public class RoverTest {
     private Rover roverUnderTest;
 
     private RoverCommandSystem commandSystem;
+    private Coordonnee obstaclePosition;
+    private Obstacles obstacles = new Obstacles();
+    private Map map;
 
     @Test
     public void should_go_forward(){
@@ -69,11 +77,39 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(NORTH);
 
-        when_rover_receive_orders('r','f','f','l','b','l','l','f');
+        when_rover_receive_instructions('r', 'f', 'f', 'l', 'b', 'l', 'l', 'f');
 
         then_the_rover_is_on_position(7,3);
         and_facing(SOUTH);
     }
+
+    @Test
+    public void should_be_stopped_when_encounter_obstacle(){
+        given_a_rover_on_position(5,5);
+        and_facing_to(NORTH);
+        and_an_obstacle_at_position(5,7);
+
+        when_rover_receive_instructions('f', 'f');
+
+        then_the_rover_is_on_position(5,6);
+        and_facing(NORTH);
+    }
+
+    @Test
+    public void should_stop_command_flow_when_encounter_obstacle(){
+        given_a_rover_on_position(5,5);
+        and_facing_to(NORTH);
+        and_an_obstacle_at_position(5,7);
+
+        when_rover_receive_instructions('f', 'f','l','f','f');
+
+        then_the_rover_is_on_position(5, 6);
+        and_facing(NORTH);
+    }
+
+    private void and_an_obstacle_at_position(int x, int y) {
+        this.obstacles.add(new Coordonnee(x,y));
+   }
 
     private void and_facing(Cardinality facingTo) {
         assertThat(roverUnderTest.getDirection()).as("invalid rover direction").isEqualTo(facingTo);
@@ -85,9 +121,13 @@ public class RoverTest {
     }
 
     private void when_rover_receive_instruction(char instruction) {
+        this.map=new Map(obstacles);
+        RoverCommandFactory.setMap(map);
         commandSystem.receive(Instructions.from(new Character[]{instruction}));
     }
-    private void when_rover_receive_orders(Character... commands) {
+    private void when_rover_receive_instructions(Character... commands) {
+        this.map=new Map(obstacles);
+        RoverCommandFactory.setMap(map);
         commandSystem.receive(Instructions.from(commands));
     }
 

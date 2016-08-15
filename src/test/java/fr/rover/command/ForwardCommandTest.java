@@ -1,7 +1,7 @@
 package fr.rover.command;
 
-import fr.rover.Cardinality;
-import fr.rover.Rover;
+import fr.rover.*;
+import fr.rover.coordonnee.Coordonnee;
 import org.junit.Test;
 
 import static fr.rover.Cardinality.*;
@@ -11,7 +11,9 @@ import static fr.rover.Cardinality.*;
  * Created by fmaury on 07/08/16.
  */
 public class ForwardCommandTest extends AbstractCommandTest{
-    
+
+
+    private Obstacles obstacles = new Obstacles();
 
     @Test
     public void should_keep_the_same_direction_when_go_forward(){
@@ -52,12 +54,30 @@ public class ForwardCommandTest extends AbstractCommandTest{
         then_are_move_to(initialX, initialY-1);
     }
 
+    @Test(expected = ObstacleDetected.class)
+    public void should_report_obstacle_detection(){
+        given_a_rover(5,5,SOUTH);
+        and_obstacle_on(5,4);
+        when_rover_go_forward();
+        then_are_move_to(initialX, initialY-1);
+    }
+
+    private void and_obstacle_on(int x, int y) {
+        this.obstacles.add(new Coordonnee(x,y));
+    }
+
+    private void given_a_rover(int x, int y, Cardinality facingTo) {
+        this.initialX=x;
+        this.initialY=y;
+        given_a_rover(facingTo);
+    }
+
     private void when_rover_go_forward() {
         newRoverState = command.execute();
     }
 
     RoverCommand getRoverCommand(Cardinality direction) {
-        return new ForwardCommand(new Rover(initialX, initialY,direction));
+        return new ForwardCommand(new Rover(initialX, initialY,direction), new Map(obstacles));
     }
 
 

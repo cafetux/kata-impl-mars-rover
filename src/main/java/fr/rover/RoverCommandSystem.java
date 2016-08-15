@@ -23,12 +23,15 @@ public class RoverCommandSystem {
         this.rover=rover;
     }
 
-
     public void receive(Instructions instructions) {
-        instructions.stream()
-                .map(TO_COMMAND)
-                .map(EXECUTE)
-                .forEach(UPDATE_ROVER_STATE);
+        try{
+            instructions.stream()
+                    .map(TO_COMMAND)
+                    .map(EXECUTE)
+                    .forEach(UPDATE_ROVER_STATE);
+        }catch (ObstacleDetected obstacle){
+            System.out.println("Nous avons rencontré un obstacle en "+obstacle.getPosition().getX()+":"+obstacle.getPosition().getY()+". Arrêt du système");
+        }
     }
 
     private void fillRover(Rover newRover) {
@@ -36,5 +39,6 @@ public class RoverCommandSystem {
         rover.setY(newRover.getY());
         rover.setDirection(newRover.getDirection());
     }
+
 
 }

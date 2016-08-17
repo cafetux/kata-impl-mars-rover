@@ -1,6 +1,7 @@
 package fr.rover.command;
 
 import fr.rover.*;
+import fr.rover.command.move.BackCommand;
 import fr.rover.coordonnee.Coordonnee;
 import org.junit.Test;
 

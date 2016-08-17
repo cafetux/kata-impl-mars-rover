@@ -1,8 +1,9 @@
-package fr.rover.command;
+package fr.rover.command.move;
 
 import fr.rover.Map;
 import fr.rover.ObstacleDetected;
 import fr.rover.Rover;
+import fr.rover.command.RoverCommand;
 
 /**
  * Created by fmaury on 07/08/16.

@@ -2,6 +2,7 @@ package fr.rover.command;
 
 import fr.rover.Cardinality;
 import fr.rover.Rover;
+import fr.rover.command.turn.TurnRightCommand;
 import org.junit.Test;
 
 import static fr.rover.Cardinality.*;

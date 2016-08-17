@@ -1,4 +1,4 @@
-package fr.rover.command;
+package fr.rover.command.move;
 
 import fr.rover.Map;
 import fr.rover.Rover;

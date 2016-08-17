@@ -1,6 +1,10 @@
 package fr.rover.command;
 
 import fr.rover.Map;
+import fr.rover.command.move.BackCommand;
+import fr.rover.command.move.ForwardCommand;
+import fr.rover.command.turn.TurnLeftCommand;
+import fr.rover.command.turn.TurnRightCommand;
 import fr.rover.instruction.Instruction;
 import fr.rover.Rover;
 

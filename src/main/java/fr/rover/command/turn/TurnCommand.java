@@ -1,7 +1,8 @@
-package fr.rover.command;
+package fr.rover.command.turn;
 
 import fr.rover.Cardinality;
 import fr.rover.Rover;
+import fr.rover.command.RoverCommand;
 
 /**
  * Created by fmaury on 13/08/16.

@@ -27,5 +27,4 @@ public class TurnLeftCommand extends TurnCommand {
                 throw new IllegalArgumentException("invalid direction "+rover.getDirection());
         }
     }
-
-    }
+}

@@ -8,13 +8,23 @@ import fr.rover.obstacle.Obstacles;
  */
 public class Map {
 
-    private Obstacles obstacles;
+    private final EdgesLinks links;
+    private final Obstacles obstacles;
+
+    public Map(Obstacles obstacles, EdgesLinks links) {
+        this.obstacles = obstacles;
+        this.links=links;
+    }
 
     public Map(Obstacles obstacles) {
-        this.obstacles = obstacles;
+        this(obstacles,new EdgesLinks());
     }
 
     public boolean isAvailable(Coordonnee position) {
         return !obstacles.isPresent(position);
+    }
+
+    public Coordonnee getRealposition(Coordonnee theoricPosition){
+        return links.getDestinationEdgeFrom(theoricPosition).orElse(theoricPosition);
     }
 }

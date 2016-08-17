@@ -27,6 +27,7 @@ public class RoverTest {
     private RoverCommandSystem commandSystem;
     private Obstacles obstacles = new Obstacles();
     private Map map;
+    private EdgesLinks links = new EdgesLinks();
 
     @Test
     public void should_go_forward(){
@@ -40,7 +41,7 @@ public class RoverTest {
     }
 
     @Test
-    public void should_go_back(){
+    public void should_go_backward(){
         given_a_rover_on_position(3, 5);
         and_facing_to(NORTH);
 
@@ -107,6 +108,22 @@ public class RoverTest {
         and_facing(NORTH);
     }
 
+    @Test
+    public void should_have_continuous_map(){
+        given_a_rover_on_position(5,5);
+        and_facing_to(NORTH);
+        and_following_edges_linked(new Coordonnee(5, 7), new Coordonnee(5, 0));
+
+        when_rover_receive_instructions(FORWARD, FORWARD, TURN_LEFT,FORWARD,FORWARD);
+
+        then_the_rover_is_on_position(3, 0);
+        and_facing(WEST);
+    }
+
+    private void and_following_edges_linked(Coordonnee coordonnee, Coordonnee coordonnee1) {
+        links.addLinkBetweenEdges(coordonnee,coordonnee1);
+    }
+
 
     private void and_an_obstacle_at_position(int x, int y) {
         this.obstacles.add(new Coordonnee(x,y));
@@ -122,12 +139,12 @@ public class RoverTest {
     }
 
     private void when_rover_receive_instruction(char instruction) {
-        this.map=new Map(obstacles);
+        this.map=new Map(obstacles,links);
         RoverCommandFactory.setMap(map);
         commandSystem.receive(Instructions.from(new Character[]{instruction}));
     }
     private void when_rover_receive_instructions(Character... commands) {
-        this.map=new Map(obstacles);
+        this.map=new Map(obstacles, links);
         RoverCommandFactory.setMap(map);
         commandSystem.receive(Instructions.from(commands));
     }

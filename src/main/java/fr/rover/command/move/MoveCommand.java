@@ -20,12 +20,20 @@ public abstract class MoveCommand implements RoverCommand {
 
     public Rover execute() {
         Rover newRoverState = getNewRoverState();
-        if(map.isAvailable(newRoverState.getPosition())){
-            return newRoverState;
-        }else{
+        newRoverState=adjustOnContinuousMap(newRoverState);
+        detectObstacle(newRoverState);
+        return newRoverState;
+    }
+
+    private Rover adjustOnContinuousMap(Rover newRoverState) {
+        newRoverState.setPosition(map.getRealposition(newRoverState.getPosition()));
+        return newRoverState;
+    }
+
+    private void detectObstacle(Rover newRoverState) {
+        if (!map.isAvailable(newRoverState.getPosition())) {
             throw new ObstacleDetected(newRoverState.getPosition());
         }
-
     }
 
     abstract protected Rover getNewRoverState();

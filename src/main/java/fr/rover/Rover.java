@@ -47,4 +47,8 @@ public class Rover {
     public Coordonnee getPosition() {
         return position;
     }
+
+    public void setPosition(Coordonnee position) {
+        this.position = position;
+    }
 }

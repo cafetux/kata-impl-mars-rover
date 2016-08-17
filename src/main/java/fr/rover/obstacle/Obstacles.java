@@ -1,4 +1,4 @@
-package fr.rover;
+package fr.rover.obstacle;
 
 import fr.rover.coordonnee.Coordonnee;
 
@@ -17,7 +17,7 @@ public class Obstacles {
     }
 
 
-    public boolean existOn(Coordonnee position) {
+    public boolean isPresent(Coordonnee position) {
         return this.obstaclesPosition.contains(position);
     }
 }

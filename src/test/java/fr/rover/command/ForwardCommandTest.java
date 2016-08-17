@@ -3,6 +3,8 @@ package fr.rover.command;
 import fr.rover.*;
 import fr.rover.command.move.ForwardCommand;
 import fr.rover.coordonnee.Coordonnee;
+import fr.rover.obstacle.ObstacleDetected;
+import fr.rover.obstacle.Obstacles;
 import org.junit.Test;
 
 import static fr.rover.Cardinality.*;

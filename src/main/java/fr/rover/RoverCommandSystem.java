@@ -4,6 +4,7 @@ import fr.rover.command.RoverCommand;
 import fr.rover.command.RoverCommandFactory;
 import fr.rover.instruction.Instruction;
 import fr.rover.instruction.Instructions;
+import fr.rover.obstacle.ObstacleDetected;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

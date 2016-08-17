@@ -1,4 +1,4 @@
-package fr.rover;
+package fr.rover.obstacle;
 
 import fr.rover.coordonnee.Coordonnee;
 

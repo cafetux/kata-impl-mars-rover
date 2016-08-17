@@ -1,19 +1,19 @@
 package fr.rover.command;
 
+import fr.rover.Map;
 import fr.rover.Rover;
 
 /**
  * Created by fmaury on 07/08/16.
  */
-public class BackCommand implements RoverCommand {
+public class BackCommand extends MoveCommand {
 
-    private final Rover rover;
 
-    public BackCommand(Rover rover){
-        this.rover=rover;
+    public BackCommand(Rover rover, Map map){
+        super(rover,map);
     }
 
-    public Rover execute() {
+    protected Rover getNewRoverState() {
         switch (rover.getDirection()) {
             case SOUTH:
                 return new Rover(rover.getX(), rover.getY() + 1, rover.getDirection());
@@ -26,6 +26,5 @@ public class BackCommand implements RoverCommand {
             default:
                 throw new IllegalArgumentException("invalid direction "+rover.getDirection());
         }
-
     }
 }

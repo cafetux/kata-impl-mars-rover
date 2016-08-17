@@ -59,7 +59,6 @@ public class ForwardCommandTest extends AbstractCommandTest{
         given_a_rover(5,5,SOUTH);
         and_obstacle_on(5,4);
         when_rover_go_forward();
-        then_are_move_to(initialX, initialY-1);
     }
 
     private void and_obstacle_on(int x, int y) {

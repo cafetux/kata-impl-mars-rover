@@ -107,6 +107,7 @@ public class RoverTest {
         and_facing(NORTH);
     }
 
+
     private void and_an_obstacle_at_position(int x, int y) {
         this.obstacles.add(new Coordonnee(x,y));
    }

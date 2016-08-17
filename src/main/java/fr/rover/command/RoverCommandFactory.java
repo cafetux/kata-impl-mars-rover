@@ -24,7 +24,7 @@ public class RoverCommandFactory {
             return new ForwardCommand(rover,map);
         }
         if (BACK.equals(instruction)) {
-            return new BackCommand(rover);
+            return new BackCommand(rover,map);
         }
         if (TURN_LEFT.equals(instruction)) {
             return new TurnLeftCommand(rover);

@@ -5,12 +5,7 @@ import fr.rover.coordonnee.Coordonnee;
 import fr.rover.instruction.Instructions;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static fr.rover.Cardinality.NORTH;
-import static fr.rover.Cardinality.SOUTH;
-import static fr.rover.Cardinality.WEST;
-import static java.util.Arrays.asList;
+import static fr.rover.Cardinality.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -19,12 +14,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoverTest {
 
 
+    public static final char FORWARD = 'f';
+    public static final char BACKWARD = 'b';
+    public static final char TURN_LEFT = 'l';
+    public static final char TURN_RIGHT = 'r';
+
     private int initialX;
     private int initialY;
     private Rover roverUnderTest;
 
     private RoverCommandSystem commandSystem;
-    private Coordonnee obstaclePosition;
     private Obstacles obstacles = new Obstacles();
     private Map map;
 
@@ -33,7 +32,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(SOUTH);
 
-        when_rover_receive_instruction('f');
+        when_rover_receive_instruction(FORWARD);
 
         then_the_rover_is_on_position(5,4);
         and_facing(SOUTH);
@@ -44,7 +43,7 @@ public class RoverTest {
         given_a_rover_on_position(3, 5);
         and_facing_to(NORTH);
 
-        when_rover_receive_instruction('b');
+        when_rover_receive_instruction(BACKWARD);
 
         then_the_rover_is_on_position(3,4);
         and_facing(NORTH);
@@ -55,7 +54,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(WEST);
 
-        when_rover_receive_instruction('l');
+        when_rover_receive_instruction(TURN_LEFT);
 
         then_the_rover_is_on_position(5,5);
         and_facing(SOUTH);
@@ -66,7 +65,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(SOUTH);
 
-        when_rover_receive_instruction('r');
+        when_rover_receive_instruction(TURN_RIGHT);
 
         then_the_rover_is_on_position(5,5);
         and_facing(WEST);
@@ -77,7 +76,7 @@ public class RoverTest {
         given_a_rover_on_position(5, 5);
         and_facing_to(NORTH);
 
-        when_rover_receive_instructions('r', 'f', 'f', 'l', 'b', 'l', 'l', 'f');
+        when_rover_receive_instructions(TURN_RIGHT, FORWARD, FORWARD, TURN_LEFT, BACKWARD, TURN_LEFT, TURN_LEFT, FORWARD);
 
         then_the_rover_is_on_position(7,3);
         and_facing(SOUTH);
@@ -89,7 +88,7 @@ public class RoverTest {
         and_facing_to(NORTH);
         and_an_obstacle_at_position(5,7);
 
-        when_rover_receive_instructions('f', 'f');
+        when_rover_receive_instructions(FORWARD, FORWARD);
 
         then_the_rover_is_on_position(5,6);
         and_facing(NORTH);
@@ -101,7 +100,7 @@ public class RoverTest {
         and_facing_to(NORTH);
         and_an_obstacle_at_position(5,7);
 
-        when_rover_receive_instructions('f', 'f','l','f','f');
+        when_rover_receive_instructions(FORWARD, FORWARD, TURN_LEFT,FORWARD,FORWARD);
 
         then_the_rover_is_on_position(5, 6);
         and_facing(NORTH);

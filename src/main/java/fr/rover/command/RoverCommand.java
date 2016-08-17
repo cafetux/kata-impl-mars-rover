@@ -8,7 +8,7 @@ import fr.rover.Rover;
 public interface RoverCommand {
 
     /**
-     * execute the command
+     * apply the command to the rover
      * @return the new rover state
      */
     Rover execute();

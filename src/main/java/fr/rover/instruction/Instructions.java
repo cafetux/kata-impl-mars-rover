@@ -19,7 +19,7 @@ public class Instructions {
     }
 
     public static Instructions from(Character[] instructions){
-        return new Instructions(Arrays.stream(instructions).map(Instruction::new).collect(Collectors.toList()));
+        return new Instructions(Arrays.stream(instructions).map(Instruction::from).collect(Collectors.toList()));
     }
 
     public Stream<Instruction> stream() {

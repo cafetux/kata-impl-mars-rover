@@ -14,10 +14,10 @@ import fr.rover.Rover;
 public class RoverCommandFactory {
 
 
-    public static final Instruction FORWARD = new Instruction('f');
-    public static final Instruction BACK = new Instruction('b');
-    public static final Instruction TURN_LEFT = new Instruction('l');
-    public static final Instruction TURN_RIGHT = new Instruction('r');
+    public static final Instruction FORWARD = Instruction.from('f');
+    public static final Instruction BACK = Instruction.from('b');
+    public static final Instruction TURN_LEFT = Instruction.from('l');
+    public static final Instruction TURN_RIGHT = Instruction.from('r');
     private static Map map;
 
     public static RoverCommand get(Instruction instruction,Rover rover){

@@ -1,13 +1,17 @@
 package fr.rover.instruction;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by fmaury on 13/08/16.
  */
 public class Instruction {
 
+    private static final Map<Character,Instruction> singletons=new HashMap<>();
     private char instruction;
 
-    public Instruction(char instruction) {
+    private Instruction(char instruction) {
         this.instruction = instruction;
     }
 
@@ -25,5 +29,12 @@ public class Instruction {
     @Override
     public int hashCode() {
         return (int) instruction;
+    }
+
+    public static Instruction from(char instruction) {
+        if(!singletons.containsKey(instruction)){
+            singletons.put(instruction,new Instruction(instruction));
+        }
+        return singletons.get(instruction);
     }
 }

@@ -20,6 +20,10 @@ public class Map {
         this(obstacles,new EdgesLinks());
     }
 
+    public Map() {
+        this(new Obstacles(),new EdgesLinks());
+    }
+
     public boolean isAvailable(Coordonnee position) {
         return !obstacles.isPresent(position);
     }
